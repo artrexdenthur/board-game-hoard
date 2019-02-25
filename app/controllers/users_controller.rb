@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   # POST: /users
   post "/users" do
     # binding.pry
-    user = User.create(email: params["email"], password: params["password"])
+    user = User.create(email: params["email"], password_digest: params["password"])
     redirect "/users"
   end
 
