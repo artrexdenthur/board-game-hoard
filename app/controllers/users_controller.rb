@@ -12,6 +12,8 @@ class UsersController < ApplicationController
 
   # POST: /users
   post "/users" do
+    # binding.pry
+    user = User.create(email: params["email"], password: params["password"])
     redirect "/users"
   end
 
