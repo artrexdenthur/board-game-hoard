@@ -13,12 +13,13 @@ class UsersController < ApplicationController
   # POST: /users
   post "/users" do
     binding.pry
-    user = User.create(email: params["email"], password_digest: params["password"])
+    user = User.create(email: params["email"], password_digest: params["password"], username: params["username"])
     # TODO: This may be the place to catch insecure passwords
     if user.save
       redirect "/users"
     else
       redirect # TODO: What happens if a password is insecure?
+    end
   end
 
   # GET: /users/5
