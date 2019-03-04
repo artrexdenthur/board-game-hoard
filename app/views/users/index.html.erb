@@ -1,5 +1,13 @@
 <h1>This is the Users's index page.</h1>
-
-<% User.all.each do |user| %>
-<p> <%= user.email %> </p>
-<% end %>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+  </tr>
+  <% User.all.each do |user| %>
+    <tr>
+      <td> <%= user.username %> </td>
+      <td> <%= user.email %> </td>
+    </tr>
+  <% end %>
+</table>
