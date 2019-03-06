@@ -17,10 +17,6 @@ class GamesController < ApplicationController
     erb :"/games/index.html"
   end
 
-  def format_games_index(uid)
-    "/users/#{uid}"
-  end
-
   # GET: /games/new
   get "/games/new" do
     erb :"/games/new.html"
@@ -51,5 +47,9 @@ class GamesController < ApplicationController
   # DELETE: /games/5/delete
   delete "/games/:id/delete" do
     redirect "/games"
+  end
+
+
+  helpers do
   end
 end
