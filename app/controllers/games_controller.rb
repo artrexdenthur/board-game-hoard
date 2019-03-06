@@ -18,11 +18,13 @@ class GamesController < ApplicationController
 
   # GET: /games/5
   get "/games/:id" do
+    @game = Game.find(params[:id])
     erb :"/games/show.html"
   end
 
   # GET: /games/5/edit
   get "/games/:id/edit" do
+    # REQUIRES VALIDATION
     erb :"/games/edit.html"
   end
 

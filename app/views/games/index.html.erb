@@ -1,1 +1,15 @@
-<h1>This is the Model's index page.</h1>
+<h1>This is the Games index page.</h1>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+  </tr>
+  <% @games.each do |game| %>
+    <tr>
+      <td><%=game.name%></td>
+      <td><a href="/users/<%=game.user.id%>"><%=game.user.username%></a></td>
+    </tr>
+  <% end %>
+</table>
