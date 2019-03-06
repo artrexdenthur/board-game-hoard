@@ -2,8 +2,23 @@ class GamesController < ApplicationController
 
   # GET: /games
   get "/games" do
+    @index_attribute_titles = {
+      'name' => 'Name',
+      'user_id' => 'User'
+    }
+    @index_attribute_commands = {
+      'user_id' => [:user, :username]
+    }
+    @attribute_link_format = {
+      'user_id' => "/users/"
+    }
     @games = Game.all
+    # binding.pry
     erb :"/games/index.html"
+  end
+
+  def format_games_index(uid)
+    "/users/#{uid}"
   end
 
   # GET: /games/new

@@ -3,13 +3,24 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Owner</th>
+    <% Game.attribute_names.each do |name| %>
+      <% if @index_attribute_titles[name] %>
+        <th><%= @index_attribute_titles[name] %></th>
+      <% end %>
+    <% end %>
   </tr>
   <% @games.each do |game| %>
     <tr>
-      <td><%=game.name%></td>
-      <td><a href="/users/<%=game.user.id%>"><%=game.user.username%></a></td>
+      <% game.attributes.each do |att, val| %>
+        <% if @index_attribute_titles[att] %>
+          <% arr = @index_attribute_commands[att] ? @index_attribute_commands[att] : [att]%>
+          <% if @attribute_link_format[att] %>
+            <td><a href="<%=@attribute_link_format[att] + val.to_s%>"><%= arr.inject(game, :send) %></a></td>
+          <% else %>
+            <td><%= arr.inject(game, :send) %></td>
+          <% end %>
+        <% end %>
+      <% end %>
     </tr>
   <% end %>
 </table>
