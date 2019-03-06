@@ -38,4 +38,9 @@ describe "Games" do
     fill_in "password", with: "testpass"
     click_on "submit"
   end
+
+  it "Can view a single game instance with all its details:" do
+    visit "/games/1"
+    expect(page_content).to include("Game Title")
+  end
 end

@@ -2,15 +2,15 @@ class GamesController < ApplicationController
 
   # GET: /games
   get "/games" do
-    @index_attribute_titles = {
+    @index_titles = {
       'name' => 'Name',
       'user_id' => 'User'
     }
-    @index_attribute_commands = {
+    @index_commands = {
       'user_id' => [:user, :username]
     }
-    @attribute_link_format = {
-      'user_id' => "/users/"
+    @att_links = {
+      'user_id' => :user_link
     }
     @games = Game.all
     # binding.pry
@@ -29,6 +29,7 @@ class GamesController < ApplicationController
 
   # GET: /games/5
   get "/games/:id" do
+    # binding.pry
     @game = Game.find(params[:id])
     erb :"/games/show.html"
   end
@@ -51,5 +52,23 @@ class GamesController < ApplicationController
 
 
   helpers do
+    def user_link(user_id)
+      "/users/#{user_id}"
+    end
+
+    def show_hash
+      {
+         titles: {
+          'name' => 'Name',
+          'user_id' => 'User'
+        },
+        commands: {
+          'user_id' => [:user, :username]
+        },
+        links: {
+          'user_id' => :user_link
+        }
+      }
+    end
   end
 end
