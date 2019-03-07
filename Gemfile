@@ -10,6 +10,7 @@ gem 'require_all'
 gem 'pg', '~> 0.18'
 gem 'thin'
 gem 'shotgun'
+gem 'sinatra-flash'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"

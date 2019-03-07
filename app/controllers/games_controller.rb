@@ -13,17 +13,28 @@ class GamesController < ApplicationController
       'user_id' => :user_link
     }
     @games = Game.all
-    # binding.pry
+    binding.pry
     erb :"/games/index.html"
   end
 
   # GET: /games/new
   get "/games/new" do
-    erb :"/games/new.html"
+    if session[:user]
+      erb :"/games/new.html"
+    else
+      redirect "/users/login"
+    end
   end
 
   # POST: /games
   post "/games" do
+
+    if session[:user]
+      game = Game.new(:name => params[:name], :user_id => session[:user].id)
+      redirect "/games/new" unless game.save
+    else
+      redirect "/users/login"
+    end
     redirect "/games"
   end
 
