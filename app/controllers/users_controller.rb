@@ -18,22 +18,11 @@ class UsersController < ApplicationController
     if user.save
       redirect "/users"
     else
+      user.delete
       redirect "/users/new"
     end
   end
 
-  get "/users/login" do
-    erb :"/users/login.html"
-  end
-
-  post "/users/login" do
-    user = User.find_by(username: params[:username]) || User.find_by(email: params[:username])
-    if user && user.authenticate(params[:password])
-      session[:user] = user
-      redirect "/users/#{user.id}"
-    end
-    redirect "/users/login"
-  end
 
   # GET: /users/5
   get "/users/:id" do

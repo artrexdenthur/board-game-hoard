@@ -1,11 +1,12 @@
-User.delete_all
-Game.delete_all
+require 'faker'
+User.destroy_all
+Game.destroy_all
 
-User.create(username: "VivJ", email:"test@test.com", password: "VivJpass")
-User.create(username: "TomV", email: "tom@vaseline.com", password: "TomVpass")
-Game.create(name: "Concordia", user_id: 1)
-Game.create(name: "Space Base", user_id: 1)
-Game.create(name: "Cards Against Humanity", user_id: 1)
-Game.create(name: "King of Tokyo", user_id: 2)
-Game.create(name: "Concordia", user_id: 2)
-Game.create(name: "BattleCON", user_id: 2)
+10.times do |i|
+  user = User.create(username: Faker::Internet.username,
+    email: Faker::Internet.safe_email,
+    password: "pass123"
+  )
+  Game.create(name: Faker::Space.moon, user_id: user.id)
+  Game.create(name: Faker::Verb.base, user_id: user.id)
+end

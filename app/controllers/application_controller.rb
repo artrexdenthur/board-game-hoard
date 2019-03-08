@@ -16,19 +16,25 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/login" do
-    erb :login # TODO write login page
+    erb :"/login.html" # TODO write login page
   end
 
   post "/login" do
+    # binding.pry
     unless params[:username] == "" || params[:password] == ""
       user = User.find_by(username: params[:username])
-        if user && user.authenticate(params[:password])
-          session[:user_id] = user.id
-          redirect '/account'
-        end
+      # binding.pry
+      if user && user.authenticate(params[:password])
+        session[:user] = user
+        redirect "/users/#{user.id}"
+      end
     end
-
     redirect '/failure'
+  end
+
+  get "/logout" do
+    session.clear
+    "You have been logged out"
   end
 
 end

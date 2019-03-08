@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 
   # GET: /games
   get "/games" do
+    binding.pry
     @index_titles = {
       'name' => 'Name',
       'user_id' => 'User'
@@ -13,7 +14,7 @@ class GamesController < ApplicationController
       'user_id' => :user_link
     }
     @games = Game.all
-    binding.pry
+    # binding.pry
     erb :"/games/index.html"
   end
 
@@ -22,7 +23,7 @@ class GamesController < ApplicationController
     if session[:user]
       erb :"/games/new.html"
     else
-      redirect "/users/login"
+      redirect "/login"
     end
   end
 
@@ -33,7 +34,7 @@ class GamesController < ApplicationController
       game = Game.new(:name => params[:name], :user_id => session[:user].id)
       redirect "/games/new" unless game.save
     else
-      redirect "/users/login"
+      redirect "/login"
     end
     redirect "/games"
   end
