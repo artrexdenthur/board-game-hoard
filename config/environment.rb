@@ -6,10 +6,7 @@ Dotenv.load
 require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
-ActiveRecord::Base.establish_connection(
-  :adapter => "postgresql",
-  :database => "bgh_development"
-)
+ActiveRecord::Base.establish_connection(ENV['SINATRA_ENV'].to_sym)
 
 require './app/controllers/application_controller'
 require_all 'app'
