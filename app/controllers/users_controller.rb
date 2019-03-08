@@ -13,10 +13,11 @@ class UsersController < ApplicationController
   # POST: /users
   post "/users" do
     # binding.pry
-    user = User.new(email: params["email"], password_digest: params["password"], username: params["username"])
+    user = User.new(email: params["email"], password: params["password"], username: params["username"])
     # binding.pry
     if user.save
-      redirect "/users"
+      session[:user] = user
+      redirect "/profile"
     else
       user.delete
       redirect "/users/new"
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
+    @user = session[:user]
     erb :"/users/show.html"
   end
 

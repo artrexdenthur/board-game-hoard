@@ -2,7 +2,7 @@ class GamesController < ApplicationController
 
   # GET: /games
   get "/games" do
-    binding.pry
+    # binding.pry
     @index_titles = {
       'name' => 'Name',
       'user_id' => 'User'

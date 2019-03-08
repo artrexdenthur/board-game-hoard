@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
       # binding.pry
       if user && user.authenticate(params[:password])
         session[:user] = user
-        redirect "/users/#{user.id}"
+        redirect "/profile"
       end
     end
     redirect '/failure'
@@ -37,4 +37,9 @@ class ApplicationController < Sinatra::Base
     "You have been logged out"
   end
 
+  get "/profile" do
+    redirect "/login" unless session[:user]
+    @user = session[:user]
+    erb :"/profile.html"
+  end
 end

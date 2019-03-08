@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe "Users" do
+describe "Users:" do
 
   it "Allows a user to create a user account with an email and password" do
     visit "/users/new"
@@ -11,11 +11,14 @@ describe "Users" do
     expect(page.status_code).to eq(200)
     expect(page).to have_content "new_user"
     expect(page).to have_content "test@test.net"
+    # binding.pry
   end
 
 
   it "Allows a user with an existing account to log in with email and password" do
+    User.create(username: "new_user", password: "testpass", email: "test@test.net")
     visit "/login"
+    # binding.pry
     fill_in "username", with: "new_user"
     fill_in "password", with: "testpass"
     click_on "submit"
@@ -27,7 +30,7 @@ describe "Users" do
 
 end
 
-describe "Games CRUD" do
+describe "Games CRUD:" do
   before do
     User.delete_all
     Game.delete_all
@@ -56,7 +59,7 @@ describe "Games CRUD" do
   # Create
 
   it "Must be logged in to create a new game" do
-    session.clear
+    visit "/logout"
     visit "/games/new"
     expect(page).to have_content("User Login")
   end
