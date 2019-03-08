@@ -80,4 +80,26 @@ describe "Games CRUD:" do
   end
 
   # TODO: It cannot create an unsanitary game
+
+  # Update
+
+  it "Can update a Game instance" do
+    User.create(username: "Vlaada", email: "chvatil@cge.com", password: "Vlaadapass")
+    game = Game.create(name: "Galaxy Trucker", user_id: 1)
+    visit "/games/#{game.id}/edit"
+    fill_in "name", with: "Mage Knight"
+    click_on "submit"
+    expect(page).to have_content("Mage Knight")
+  end
+
+  # Destroy
+
+  it "Can delete a Game" do
+    User.create(username: "Vlaada", email: "chvatil@cge.com", password: "Vlaadapass")
+    game = Game.create(name: "Galaxy Trucker", user_id: 1)
+    visit "/games/#{game.id}/delete"
+    click_on "submit"
+    expect(current_url).to be("/games")
+    expect(page).to not_have_content("Galaxy Trucker")
+  end
 end

@@ -48,7 +48,13 @@ class GamesController < ApplicationController
 
   # GET: /games/5/edit
   get "/games/:id/edit" do
-    # REQUIRES VALIDATION
+    # validate
+    if !session[:user]
+      redirect "/login"
+    elsif !session[:user].games.include?(Game.find(params[:id]))
+      redirect "/games/#{params[:id]}"
+    end
+
     erb :"/games/edit.html"
   end
 
