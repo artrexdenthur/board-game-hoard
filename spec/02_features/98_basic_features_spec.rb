@@ -65,11 +65,18 @@ describe "Games CRUD:" do
   end
 
   it "Can create a Game instance, then view it alone and in the full list" do
-    session[:user => User.find(1)]
+
+    User.create(username: "new_user", password: "testpass", email: "test@test.net")
+    visit "/login"
+    # binding.pry
+    fill_in "username", with: "new_user"
+    fill_in "password", with: "testpass"
+    click_on "submit"
+
     visit "/games/new"
     fill_in "name", with: "Go"
     click_on "submit"
-    expect(current_url).to have_content("/games/#{Game.last.id}")
+    expect(page).to have_content("Go")
   end
 
   # TODO: It cannot create an unsanitary game
