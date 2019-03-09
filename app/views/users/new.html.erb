@@ -2,21 +2,25 @@
 <% if flash[:user_error] %>
 <h3><%= flash[:user_error] %> </h3>
 <% end %>
-<form action="/users" method="POST">
-  <p>
+<form class="form-vertical" action="/users" method="POST">
+<div class="form-group">
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username" />
+</div>
+  <div class="form-group">
   <label for="email">Email</label>
   <input type="text" name="email" id="email" />
 
-</p>
-<p>
+</div>
+<div class="form-group">
   <label for="password">Password</label>
   <input type="password" name="password" id="password" />
-</p>
-<p>
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" />
-</p>
-<p>
-  <input type="submit" value="submit" id="submit" />
+</div>
+<div class="form-group">
+  <label for="password_confirmation">Confirm Password</label>
+  <input type="password" name="password_confirmation" id="password_confirmation" />
+</div>
+<div class="form-group">
+  <input type="submit" value="Submit" id="submit" />
 
 </form>

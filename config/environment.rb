@@ -1,4 +1,5 @@
-ENV['SINATRA_ENV'] ||= "development"
+ENV['RACK_ENV'] ||= "development"
+ENV['SINATRA_ENV'] ||= ENV['RACK_ENV']
 
 require 'dotenv'
 Dotenv.load
@@ -6,7 +7,7 @@ Dotenv.load
 require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
-ActiveRecord::Base.establish_connection(ENV['SINATRA_ENV'].to_sym)
+set :database_file, "./database.yml"
 
 require './app/controllers/application_controller'
 require_all 'app'

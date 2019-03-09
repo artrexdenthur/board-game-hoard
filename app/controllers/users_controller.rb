@@ -21,8 +21,8 @@ class UsersController < ApplicationController
       session[:user] = user
       redirect "/profile"
     else
+      flash[:user_error] = user.errors.messages
       user.delete
-      flash[:user_error] = "invalid input"
       redirect "/users/new"
     end
   end
