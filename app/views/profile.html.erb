@@ -1,2 +1,18 @@
 <h1>Welcome to your profile page, <%= @user.username %></h1>
 <p>Email address: <%= @user.email %></p>
+<form action="users/<%=@user.id%>/edit" method="get">
+  <input type="submit" name="edit" value="Edit Profile">
+</form>
+
+<table>
+  <% @user.games.each do |game| %>
+  <tr>
+    <td> <%= game.name %></td>
+    <td>
+      <form action="games/<%= game.id%>/edit" method="get">
+        <input type="submit" name="edit" value="Edit">
+      </form>
+    </td>
+  </tr>
+  <% end %>
+</table>

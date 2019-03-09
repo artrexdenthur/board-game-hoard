@@ -11,7 +11,8 @@ class GamesController < ApplicationController
       'user_id' => [:user, :username]
     }
     @att_links = {
-      'user_id' => :user_link
+      'user_id' => :user_link,
+      'name' => :game_link
     }
     @games = Game.all
     # binding.pry
@@ -86,6 +87,11 @@ class GamesController < ApplicationController
   helpers do
     def user_link(user_id)
       "/users/#{user_id}"
+    end
+
+    def game_link(game_name)
+      game_id = Game.find_by(name: game_name).id
+      "/games/#{game_id}"
     end
 
 
