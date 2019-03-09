@@ -53,6 +53,7 @@ class ApplicationController < Sinatra::Base
       nav_list ||= [
         { name: "Games", path: "/games", login: "u" },
         { name: "Users", path: "/users", login: "u" },
+        { name: "Sign Up", path: "/users/new", login: "f" },
         { name: "Login", path: "/login", login: "f" },
         { name: "Profile", path: "/profile", login: "t" },
         { name: "Logout", path: "/logout", login: "t" }

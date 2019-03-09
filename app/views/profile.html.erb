@@ -16,3 +16,8 @@
   </tr>
   <% end %>
 </table>
+<% if logged_in? %>
+  <form class="form-vertical" action="/games/new" method="get">
+      <input type="submit" name="new_game" value="Create New Game">
+  </form>
+<% end %>
