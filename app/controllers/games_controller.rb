@@ -88,9 +88,6 @@ class GamesController < ApplicationController
       "/users/#{user_id}"
     end
 
-    def logged_in?
-      !!session[:user]
-    end
 
     def current_user_owns?(game)
       !!session[:user].games.include?(game)

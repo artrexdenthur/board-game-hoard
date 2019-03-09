@@ -2,12 +2,13 @@ class UsersController < ApplicationController
 
   # GET: /users
   get "/users" do
-    binding.pry
+    # binding.pry
     erb :"/users/index.html"
   end
 
   # GET: /users/new
   get "/users/new" do
+
     erb :"/users/new.html"
   end
 
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
       redirect "/profile"
     else
       user.delete
+      flash[:user_error] = "invalid input"
       redirect "/users/new"
     end
   end

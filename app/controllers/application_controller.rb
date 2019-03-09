@@ -7,6 +7,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(20) }
+    register Sinatra::Flash
     # binding.pry
   end
 
@@ -44,17 +45,29 @@ class ApplicationController < Sinatra::Base
   end
   helpers do
 
-    def nav_hash
-      nav_hash ||= {
-        
-      }
-
-    def generate_nav
-
-      nav = "<ul class="nav">"
-
+    def logged_in?
+      !!session[:user]
     end
 
+    def nav_list
+      nav_list ||= [
+        { name: "Games", path: "/games", login: "u" },
+        { name: "Users", path: "/users", login: "u" },
+        { name: "Login", path: "/login", login: "f" },
+        { name: "Profile", path: "/profile", login: "t" },
+        { name: "Logout", path: "/logout", login: "t" }
+      ]
+    end
 
+    def trinary_login_match?(arg)
+      case arg
+      when "t"
+        return !!logged_in?
+      when "f"
+        return !logged_in?
+      when "u"
+        return true
+      end
+    end
   end
 end

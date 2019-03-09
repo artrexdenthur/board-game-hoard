@@ -31,15 +31,13 @@
   </body>
   <footer>
     <ul class="nav">
-        <li class="nav-item">
-          <a href="/games">Games</a>
-        </li>
-        <li class="nav-item">
-          <a href="/users">Users</a>
-        </li>
-        <li class="nav-item">
-          <a href="/games">Games</a>
-        </li>
+      <% nav_list.each do |item| %>
+        <% if trinary_login_match?(item[:login]) %>
+          <li class="nav-item">
+            <a href="<%=item[:path]%>"><%=item[:name]%></a>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </footer>
 </html>

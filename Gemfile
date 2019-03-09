@@ -10,7 +10,7 @@ gem 'sqlite3', '~> 1.3.6'
 gem 'pg', '~> 0.18'
 gem 'thin'
 gem 'shotgun'
-gem 'sinatra-flash'
+gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"
