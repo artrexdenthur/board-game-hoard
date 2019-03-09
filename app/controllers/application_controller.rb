@@ -35,7 +35,7 @@ class ApplicationController < Sinatra::Base
 
   get "/logout" do
     session.clear
-    "You have been logged out"
+    erb :"/logout.html"
   end
 
   get "/profile" do
