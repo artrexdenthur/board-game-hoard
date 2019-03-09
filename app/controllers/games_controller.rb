@@ -36,7 +36,7 @@ class GamesController < ApplicationController
     else
       redirect "/login"
     end
-    redirect "/games"
+    redirect "/games/#{game.id}"
   end
 
   # GET: /games/5
@@ -48,30 +48,52 @@ class GamesController < ApplicationController
 
   # GET: /games/5/edit
   get "/games/:id/edit" do
+    @game = Game.find(params[:id])
     # validate
-    if !session[:user]
+    if !logged_in?
       redirect "/login"
-    elsif !session[:user].games.include?(Game.find(params[:id]))
+    elsif !current_user_owns?(@game)
       redirect "/games/#{params[:id]}"
     end
-
     erb :"/games/edit.html"
   end
 
-  # PATCH: /games/5
+  # PATCH: (includes delete functionality) /games/5
   patch "/games/:id" do
-    redirect "/games/:id"
+    # binding.pry
+    @game = Game.find(params[:id])
+    if !logged_in?
+      redirect "/login"
+    elsif !current_user_owns?(@game)
+      redirect "/games/#{@game.id}"
+    elsif params[:submit] == "DELETE"
+      @game.delete
+      redirect "/games"
+    else
+      @game.update(name: params[:name])
+      redirect "/games/#{@game.id}"
+    end
   end
 
   # DELETE: /games/5/delete
   delete "/games/:id/delete" do
-    redirect "/games"
+    @game = Game.find(params[:id])
+
+    erb :"/games/delete.html"
   end
 
 
   helpers do
     def user_link(user_id)
       "/users/#{user_id}"
+    end
+
+    def logged_in?
+      !!session[:user]
+    end
+
+    def current_user_owns?(game)
+      !!session[:user].games.include?(game)
     end
 
     def show_hash

@@ -32,15 +32,17 @@ end
 
 describe "Games CRUD:" do
   before do
-    User.delete_all
-    Game.delete_all
+
     User.create(username: "Vlaada", email: "chvatil@cge.com", password: "Vlaadapass")
     Game.create(name: "Galaxy Trucker", user_id: 1)
-    Game.create(name: "Pictomania", user_id: 1)
-    User.create(username: "Reiner", email: "knizia@hotmail.com", password: "Reinerpass")
-    Game.create(name: "Ra", user_id: 2)
+    User.create(username: "Reiner", email: "knizia@games.net", password: "Reinerpass")
     Game.create(name: "Flea Circus", user_id: 2)
+    visit "/login"
+    fill_in "username", with: "Vlaada"
+    fill_in "password", with: "Vlaadapass"
+    click_on "submit"
   end
+  let(:game) {Game.first}
   # Read
 
   it "Can view all games and their users on the index page:" do
@@ -65,17 +67,12 @@ describe "Games CRUD:" do
   end
 
   it "Can create a Game instance, then view it alone and in the full list" do
-
-    User.create(username: "new_user", password: "testpass", email: "test@test.net")
-    visit "/login"
-    # binding.pry
-    fill_in "username", with: "new_user"
-    fill_in "password", with: "testpass"
-    click_on "submit"
-
     visit "/games/new"
     fill_in "name", with: "Go"
     click_on "submit"
+    expect(page).to have_current_path("/games/#{Game.last.id}")
+    expect(page).to have_content("Go")
+    visit "/games"
     expect(page).to have_content("Go")
   end
 
@@ -84,22 +81,22 @@ describe "Games CRUD:" do
   # Update
 
   it "Can update a Game instance" do
-    User.create(username: "Vlaada", email: "chvatil@cge.com", password: "Vlaadapass")
-    game = Game.create(name: "Galaxy Trucker", user_id: 1)
     visit "/games/#{game.id}/edit"
     fill_in "name", with: "Mage Knight"
     click_on "submit"
+    # binding.pry
+    # puts current_path
+    expect(page).to have_current_path("/games/#{game.id}")
     expect(page).to have_content("Mage Knight")
   end
 
   # Destroy
 
   it "Can delete a Game" do
-    User.create(username: "Vlaada", email: "chvatil@cge.com", password: "Vlaadapass")
-    game = Game.create(name: "Galaxy Trucker", user_id: 1)
-    visit "/games/#{game.id}/delete"
-    click_on "submit"
-    expect(current_url).to be("/games")
-    expect(page).to not_have_content("Galaxy Trucker")
+    visit "/games/#{game.id}/edit"
+    click_on "delete"
+    # binding.pry
+    expect(page).to have_current_path("/games")
+    expect(page).to have_no_content("Galaxy Trucker")
   end
 end
