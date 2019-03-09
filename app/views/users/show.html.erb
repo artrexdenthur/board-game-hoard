@@ -1,5 +1,8 @@
-<h1>This is the show page for an individual instance of your model.</h1>
-
-<%= @user.username %>
-<br>
-<%= @user.email %>
+<h1><%= @user.username %>'s Games</h1>
+<table>
+  <% @user.games.each do |game| %>
+  <tr>
+    <td> <%= game.name %></td>
+  </tr>
+  <% end %>
+</table>

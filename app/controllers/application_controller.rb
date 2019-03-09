@@ -42,4 +42,19 @@ class ApplicationController < Sinatra::Base
     @user = session[:user]
     erb :"/profile.html"
   end
+  helpers do
+
+    def nav_hash
+      nav_hash ||= {
+        
+      }
+
+    def generate_nav
+
+      nav = "<ul class="nav">"
+
+    end
+
+
+  end
 end
