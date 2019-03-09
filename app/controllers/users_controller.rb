@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if !logged_in?
       redirect "/login"
-    elsif !session[:user] == @user
+    elsif !(session[:user] == @user)
       redirect "/users/#{params[:id]}"
     end
     erb :"/users/edit.html"
