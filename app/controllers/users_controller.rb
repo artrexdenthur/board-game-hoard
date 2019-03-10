@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   # GET: /users/5/edit
   get "/users/:id/edit" do
-    binding.pry
+    # binding.pry
     @user = User.find(params[:id])
     if !logged_in?
       redirect "/login"
