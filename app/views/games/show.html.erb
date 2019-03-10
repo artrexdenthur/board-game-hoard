@@ -5,6 +5,9 @@
       <% if show_hash[:titles][name] %>
         <th><%= show_hash[:titles][name] %></th>
       <% end %>
+      <% if name == 'rating' %>
+        <th>Average Rating</th>
+      <% end %>
     <% end %>
   </tr>
   <tr>
@@ -16,6 +19,9 @@
         <% else %>
           <td><%= arr.inject(@game, :send) %></td>
         <% end %>
+      <% end %>
+      <% if att == 'rating' %>
+        <td><%= Game.where(name: @game.name).average(:rating) %></td>
       <% end %>
     <% end %>
   </tr>

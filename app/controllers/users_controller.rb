@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       session[:user] = user
       redirect "/profile"
     else
-      flash[:error] = user.errors.messages
+      flash[:error] = user.errors.full_messages
       user.delete
       redirect "/users/new"
     end
@@ -57,8 +57,13 @@ class UsersController < ApplicationController
       redirect "/games"
     else
       @user.update(username: params[:username], email: params[:email], password: params[:password])
+      if @user.valid?
+        redirect "/users/#{@user.id}"
+      else
+        flash[:error] = @user.errors.full_messages
+        redirect "/users/#{@user.id}/edit"
+      end
     end
-    redirect "/users/#{@user.id}"
 
   end
 

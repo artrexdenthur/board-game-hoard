@@ -5,9 +5,28 @@
 </form>
 
 <table class="table">
+
+  <tr>
+    <% Game.attribute_names.each do |name| %>
+      <% if user_hash[:titles][name] %>
+        <th><%= user_hash[:titles][name] %></th>
+      <% end %>
+      <% if name == 'rating' %>
+        <th>Average Rating</th>
+      <% end %>
+    <% end %>
+  </tr>
   <% @user.games.each do |game| %>
   <tr>
-    <td> <%= game.name %></td>
+    <% game.attributes.each do |att, val| %>
+      <% if user_hash[:titles][att] %>
+        <% arr = user_hash[:commands][att] ? user_hash[:commands][att] : [att]%>
+          <td><%= arr.inject(game, :send) %></td>
+      <% end %>
+      <% if att == 'rating' %>
+        <td><%= Game.where(name: game.name).average(:rating) %></td>
+      <% end %>
+    <% end %>
     <td>
       <form action="games/<%= game.id%>/edit" method="get">
         <input type="submit" name="edit" value="Edit">

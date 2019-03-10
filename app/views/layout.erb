@@ -25,7 +25,9 @@
       </a>
     </div>
       <% if flash[:error] %>
-      <h3><%= flash[:error] %> </h3>
+        <% flash[:error].each do |message| %>
+          <h3><%= message %> </h3>
+        <% end %>
       <% end %>
       <%= yield %>
       <footer class="branding">

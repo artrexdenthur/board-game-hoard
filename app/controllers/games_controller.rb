@@ -5,7 +5,10 @@ class GamesController < ApplicationController
     # binding.pry
     @index_titles = {
       'name' => 'Name',
-      'user_id' => 'User'
+      'user_id' => 'User',
+      'rating' => 'User Rating',
+      'plays' => 'Times Played',
+      'player_count' => 'Player Count'
     }
     @index_commands = {
       'user_id' => [:user, :username]
@@ -32,7 +35,12 @@ class GamesController < ApplicationController
   post "/games" do
 
     if session[:user]
-      game = Game.new(:name => params[:name], :user_id => session[:user].id)
+      game = Game.new(
+        name: params[:name],
+        rating: params[:rating],
+        plays: params[:plays],
+        player_count: params[:player_count],
+        user_id: session[:user].id)
       redirect "/games/new" unless game.save
     else
       redirect "/login"
@@ -71,8 +79,17 @@ class GamesController < ApplicationController
       @game.delete
       redirect "/games"
     else
-      @game.update(name: params[:name])
-      redirect "/games/#{@game.id}"
+      @game.update(
+        name: params[:name],
+        rating: params[:rating],
+        plays: params[:plays],
+        player_count: params[:player_count])
+      if @game.valid?
+        redirect "/games/#{@game.id}"
+      else
+        flash[:error] = @game.errors.full_messages
+        redirect "/games/#{@game.id}/edit"
+      end
     end
   end
 
@@ -103,7 +120,10 @@ class GamesController < ApplicationController
       {
          titles: {
           'name' => 'Name',
-          'user_id' => 'User'
+          'user_id' => 'User',
+          'rating' => 'Personal Rating',
+          'plays' => 'Times Played',
+          'player_count' => 'Player Count'
         },
         commands: {
           'user_id' => [:user, :username]
@@ -111,6 +131,18 @@ class GamesController < ApplicationController
         links: {
           'user_id' => :user_link
         }
+      }
+    end
+
+    def user_hash
+      {
+        titles: {
+          'name' => 'Name',
+          'rating' => 'Personal Rating',
+          'plays' => 'Times Played',
+          'player_count' => 'Player Count'
+        },
+        commands: {}
       }
     end
   end
