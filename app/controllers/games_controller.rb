@@ -45,7 +45,7 @@ class GamesController < ApplicationController
     else
       redirect "/login"
     end
-    redirect "/games/#{game.id}"
+    redirect "/profile"
   end
 
   # GET: /games/5
@@ -77,7 +77,7 @@ class GamesController < ApplicationController
       redirect "/games/#{@game.id}"
     elsif params[:submit] == "DELETE"
       @game.delete
-      redirect "/games"
+      redirect "/profile"
     else
       @game.update(
         name: params[:name],
@@ -85,7 +85,7 @@ class GamesController < ApplicationController
         plays: params[:plays],
         player_count: params[:player_count])
       if @game.valid?
-        redirect "/games/#{@game.id}"
+        redirect "/profile"
       else
         flash[:error] = @game.errors.full_messages
         redirect "/games/#{@game.id}/edit"
