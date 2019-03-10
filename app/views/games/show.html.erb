@@ -1,5 +1,5 @@
 <h1><%= @game.name %></h1>
-<table>
+<table class="table">
   <tr>
     <% Game.attribute_names.each do |name| %>
       <% if show_hash[:titles][name] %>

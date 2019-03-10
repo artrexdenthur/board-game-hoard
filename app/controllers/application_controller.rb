@@ -17,6 +17,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/login" do
+
     erb :"/login.html" # TODO write login page
   end
 
@@ -28,9 +29,11 @@ class ApplicationController < Sinatra::Base
       if user && user.authenticate(params[:password])
         session[:user] = user
         redirect "/profile"
+      else
+        flash[:error] = "Incorrect username or password"
+        redirect "/login"
       end
     end
-    redirect '/failure'
   end
 
   get "/logout" do
