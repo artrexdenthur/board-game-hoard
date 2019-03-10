@@ -44,7 +44,7 @@ class ApplicationController < Sinatra::Base
   get "/profile" do
     redirect "/login" unless session[:user]
     @user = session[:user]
-    binding.pry
+    # binding.pry
     erb :"/profile.html"
   end
   helpers do
