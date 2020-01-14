@@ -24,7 +24,7 @@
           <% end %>
         <% end %>
         <% if att == 'rating' %>
-          <td><%= Game.where(name: game.name).average(:rating) %></td>
+          <td><%= Game.where(name: game.name).average(:rating).round(2) %></td>
         <% end %>
       <% end %>
     </tr>
