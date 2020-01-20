@@ -14,6 +14,7 @@ gem 'pg', '~> 0.18'
 gem 'thin'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'bcrypt'
+gem 'bgg-api'
 
 group :development do
   gem 'pry'

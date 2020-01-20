@@ -1,10 +1,9 @@
 class Game < ActiveRecord::Base
-  belongs_to :user
-  validates_presence_of :name, :user_id
-  validates :rating, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 1,
-    less_than_or_equal_to: 10
-   }
-   validates :plays, numericality: { only_integer: true }
+  has_many :user_games
+  has_many :users, through: :user_games
+  validates_presence_of :name
+end
+
+def average_rating
+  
 end

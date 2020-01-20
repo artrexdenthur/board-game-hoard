@@ -23,6 +23,9 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     arel (6.0.4)
     bcrypt (3.1.13)
+    bgg-api (0.0.2)
+      httparty
+      xml-simple
     bond (0.5.1)
     builder (3.2.4)
     capybara (3.30.0)
@@ -42,12 +45,19 @@ GEM
     faker (2.2.1)
       i18n (>= 0.8)
     foreman (0.87.0)
+    httparty (0.17.3)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     method_source (0.9.2)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2019.1009)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
+    multi_xml (0.6.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nokogiri (1.10.7)
@@ -118,6 +128,7 @@ GEM
       sinatra (>= 1.2.1)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
+    xml-simple (1.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -127,6 +138,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 4.2, >= 4.2.6)
   bcrypt
+  bgg-api
   capybara
   database_cleaner!
   dotenv

@@ -47,6 +47,7 @@ class ApplicationController < Sinatra::Base
     # binding.pry
     erb :"/profile.html"
   end
+
   helpers do
 
     def logged_in?

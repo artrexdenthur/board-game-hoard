@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   validates :email, confirmation: true
 
   has_secure_password
-  has_many :games
+  has_many :user_games
+  has_many :games, through: :user_games
 
   def validate_username
     if User.where(email: username).exists?
